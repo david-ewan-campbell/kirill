@@ -9,7 +9,7 @@ describe "Streaming API" do
   include Rack::Test::Methods
 
   context "note-on endpoint" do
-    xit "POST request returns HTTP status 200" do
+    it "POST request returns HTTP status 200" do
       response = post '/api/note-on'
 
       expect(response.status).to eq(200)
@@ -18,8 +18,8 @@ describe "Streaming API" do
   end
 
   context "listen endpoint" do
-    xit "GET request returns HTTP status 200" do
-      app.streaming_mode = StreamingDisabledMode.new
+    it "GET request returns HTTP status 200" do
+      # app.streaming_mode = StreamingDisabledMode.new
 
       response = get '/api/listen'
 

@@ -19,5 +19,12 @@ class Kirill < Sinatra::Base
     erb :listen
   end
 
+  post '/api/note-on' do
+    'OK'
+  end
+
+  get '/api/listen' do
+  end
+
   run! if app_file == $PROGRAM_NAME
 end
