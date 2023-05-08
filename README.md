@@ -2,13 +2,15 @@
 
 ## A collaborative project to build a distributed musical instrument.
 - Uses the built-in web audio context & various other technologies/languages,
-including Ruby, Javascript, Shell scripting, HTML & CSS.
+including Ruby, Javascript, Shell scripting, HTML & CSS & Sinatra.
 
 - Fully test driven to build the most stable production code using RSPEC with Ruby & Jest with Javascript.
 
-- Collaborative process explored using a Trello board & Google Docs
+- Collaborative process explored using a Trello board & Google Docs.
 
-- Will be deployed using Railway.
+- Committing often for each incremental change & trying to have the commit message ethos of 'why' rather than just 'what'.
+
+- Will be deployed using Railway - in progress.
 ### Named after the 2022 Air Guitar World Champion, Kirill "Guitarantula" Blumenkrants.
 
 ## Testing
