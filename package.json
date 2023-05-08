@@ -12,12 +12,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/endofhome/kirill.git"
+    "url": "git+https://github.com/david-ewan-campbell/kirill.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/endofhome/kirill/issues"
+    "url": "https://github.com/david-ewan-campbell/kirill/issues"
   },
-  "homepage": "https://github.com/endofhome/kirill#readme"
+  "homepage": "https://github.com/david-ewan-campbell/kirill#readme"
 }
