@@ -24,6 +24,7 @@ class Kirill < Sinatra::Base
   end
 
   get '/api/listen' do
+    content_type "text/event-stream"
   end
 
   run! if app_file == $PROGRAM_NAME

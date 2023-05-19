@@ -26,8 +26,8 @@ describe "Streaming API" do
       expect(response.status).to eq(200)
     end
 
-    xit "GET request returns correct content-type header for Server Sent Events" do
-      app.streaming_mode = StreamingDisabledMode.new
+    it "GET request returns correct content-type header for Server Sent Events" do
+      # app.streaming_mode = StreamingDisabledMode.new
 
       response = get '/api/listen'
 
