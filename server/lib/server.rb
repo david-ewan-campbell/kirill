@@ -7,9 +7,16 @@ class StreamingEnabledMode
 
   def streamed_one_event
   end
+
 end
 
 class Kirill < Sinatra::Base
+
+  @@streaming_mode = StreamingEnabledMode.new
+
+  def self.streaming_mode=(new_streaming_mode)
+    @@streaming_mode = new_streaming_mode
+  end
 
   get '/' do
     'Hi from Kirill!'

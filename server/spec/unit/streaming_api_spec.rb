@@ -19,7 +19,7 @@ describe "Streaming API" do
 
   context "listen endpoint" do
     it "GET request returns HTTP status 200" do
-      # app.streaming_mode = StreamingDisabledMode.new
+      app.streaming_mode = StreamingDisabledMode.new
 
       response = get '/api/listen'
 
@@ -27,7 +27,7 @@ describe "Streaming API" do
     end
 
     it "GET request returns correct content-type header for Server Sent Events" do
-      # app.streaming_mode = StreamingDisabledMode.new
+      app.streaming_mode = StreamingDisabledMode.new
 
       response = get '/api/listen'
 
