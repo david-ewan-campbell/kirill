@@ -38,7 +38,7 @@ describe "Streaming API" do
 
   context "note-on and listen endpoints interacting" do
     # I observed some flakiness of this test, probably due to the concurrency involved, hence the retry attempts.
-    xit "correctly formed Server Sent Event is sent for each note-on request", :retry => 3 do
+    it "correctly formed Server Sent Event is sent for each note-on request", :retry => 3 do
       app.streaming_mode = StreamOneEventMode.new
 
         # send POST requests to the note-on endpoint repeatedly in the background
@@ -56,12 +56,16 @@ describe "Streaming API" do
   end
 end
 
+# event: note-on
+# data: {"frequency":100}
+#
+
 class StreamOneEventMode
   def initialize
     @streaming_enabled = true
   end
 
-  def should_stream
+  def should_stream?
     @streaming_enabled
   end
 
@@ -71,7 +75,7 @@ class StreamOneEventMode
 end
 
 class StreamingDisabledMode
-  def should_stream
+  def should_stream?
     false
   end
 
