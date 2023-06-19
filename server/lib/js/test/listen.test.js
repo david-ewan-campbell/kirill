@@ -5,45 +5,112 @@ const listen = require('../src/listen');
 const fs = require("node:fs");
 const path = require("node:path");
 
-const spyOscillatorConnect = jest.fn();
-const spyOscillatorStart = jest.fn();
+let stubOscillator;
+let stubEventSource;
+let waitForEventListener;
+let resolveWaitForEventListener;
+
 const spyCreateOscillator = jest.fn(() => {
-    return {
-        connect: spyOscillatorConnect,
-        start: spyOscillatorStart
-    }
+    return stubOscillator;
 });
 const stubAudioContext = {
     createOscillator: spyCreateOscillator,
     destination: {}
 };
+const deserialisedNoteOnEventData = {
+    frequency: 123
+};
+const stubNoteOnEvent = {
+    data: JSON.stringify(deserialisedNoteOnEventData)
+}
 
 const listenTemplatePath = path.resolve(__dirname, '../../views/listen.erb');
 const listenTemplateContent = fs.readFileSync(listenTemplatePath, 'utf8');
 
 beforeEach(() => {
     jest.clearAllMocks();
+    stubOscillator = {
+        connect: jest.fn(),
+        start: jest.fn(),
+        frequency: {
+            setValueAtTime: jest.fn()
+        }
+    };
+    stubEventSource = {
+        _url: null,
+        addEventListener: (eventType, handleEventFn) => {
+            resolveWaitForEventListener(handleEventFn);
+        },
+        _receiveNoteOnEvent: async () => {
+            waitForEventListener
+                .then(handleEventFn => handleEventFn(stubNoteOnEvent));
+        }
+    };
+    waitForEventListener = new Promise(resolve => (resolveWaitForEventListener = resolve));
 });
 
 describe("listen page", () => {
-    test('Can receive input after clicking button', () => {
+    xtest('After clicking power on and receiving a note-on event, a note is sent to the oscillator', async () => {
         document.body.innerHTML = listenTemplateContent;
+        delete window.location;
+        window.location = { origin: "https://www.example.org" };
         window.AudioContext = jest.fn().mockImplementation(() => stubAudioContext);
+        window.EventSource = jest.fn().mockImplementation((url) => {
+            stubEventSource._url = url;
+            return stubEventSource;
+        });
         const powerOnButton = document.querySelector("#power-on-button");
 
-        listen(); // run the script, which sets up the event listener
-        powerOnButton.click(); // click the power on button
+        listen(); // run the script, which sets up the power button 'onclick' event listener
+        powerOnButton.click() // click the power on button
+        await stubEventSource._receiveNoteOnEvent(); // receive one note-on event
 
+        expect(stubEventSource._url).toBe(`${window.location.origin}/api/listen`);
         expect(spyCreateOscillator).toHaveBeenCalledTimes(1);
-        expect(spyOscillatorConnect).toHaveBeenCalledTimes(1);
-        expect(spyOscillatorConnect).toHaveBeenCalledWith(stubAudioContext.destination);
-        expect(spyOscillatorStart).toHaveBeenCalledTimes(1);
-        expect(spyOscillatorStart).toHaveBeenCalledWith();
+        expect(stubOscillator.frequency.setValueAtTime).toHaveBeenCalledWith(deserialisedNoteOnEventData.frequency, 0);
+        expect(stubOscillator.connect).toHaveBeenCalledTimes(1);
+        expect(stubOscillator.connect).toHaveBeenCalledWith(stubAudioContext.destination);
+        expect(stubOscillator.start).toHaveBeenCalledTimes(1);
+        expect(stubOscillator.start).toHaveBeenCalledWith();
+    });
+
+    test('No audio output or event stream if power-on button hasn\'t been clicked', async () => {
+        document.body.innerHTML = listenTemplateContent;
+        window.AudioContext = jest.fn().mockImplementation(() => stubAudioContext);
+        window.EventSource = jest.fn().mockImplementation((url) => {
+            stubEventSource._url = url;
+            return stubEventSource;
+        });
+
+        listen();
+        await stubEventSource._receiveNoteOnEvent();
+
+        expect(spyCreateOscillator).toHaveBeenCalledTimes(0);
+        expect(stubEventSource._url).toBe(null);
+    });
+
+    xtest('No audio output until note-on events are received, even after power-on has been clicked', () => {
+        document.body.innerHTML = listenTemplateContent;
+        window.AudioContext = jest.fn().mockImplementation(() => stubAudioContext);
+        window.EventSource = jest.fn().mockImplementation((url) => {
+            stubEventSource._url = url;
+            return stubEventSource;
+        });
+        const powerOnButton = document.querySelector("#power-on-button");
+
+        listen();
+        powerOnButton.click()
+
+        expect(spyCreateOscillator).toHaveBeenCalledTimes(0);
     });
 
     test('Power on button is disabled after clicking once', () => {
         document.body.innerHTML = listenTemplateContent;
         window.AudioContext = jest.fn().mockImplementation(() => stubAudioContext);
+        window.EventSource = jest.fn().mockImplementation((url) => {
+            stubEventSource._url = url;
+            return stubEventSource;
+        });
         const powerOnButton = document.querySelector("#power-on-button");
 
         listen();
