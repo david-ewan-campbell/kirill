@@ -30,12 +30,3 @@ jobs:
 
       - name: Build Kirill
         run: ./build
-
-      - name: Install the Railway CLI
-        run: npm i -g @railway/cli@3.0.8
-
-      # Deploy to Railway using the CLI and a secret token I've provisioned in GitHub
-      - name: Deploy to Railway.app
-        run: railway up
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
