@@ -17,18 +17,12 @@
 require 'capybara'
 require 'capybara/rspec'
 require 'rspec'
-require 'rspec/retry'
 
 require File.join(File.dirname(__FILE__), '..', 'lib/server.rb')
 
 Capybara.app = Kirill
 
 RSpec.configure do |config|
-  # show retry status in spec process
-  config.verbose_retry = true
-  # show exception that triggers a retry if verbose_retry is set to true
-  config.display_try_failure_messages = true
-
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.

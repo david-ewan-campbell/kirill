@@ -5,4 +5,3 @@ gem 'webrick'
 gem 'rspec'
 gem 'capybara'
 gem 'rack-test'
-gem 'rspec-retry', group: :test
