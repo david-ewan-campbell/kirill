@@ -2,4 +2,5 @@
 
 set -euo pipefail # Bash 'strict mode'
 
-ruby server/lib/server.rb
+PORT="${PORT:-4567}"
+cd server && rackup -p "$PORT"
