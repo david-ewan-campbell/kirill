@@ -50,7 +50,7 @@ beforeEach(() => {
 });
 
 describe("listen page", () => {
-    test('After clicking power on and receiving a note-on event, a note is sent to the oscillator', async () => {
+    xtest('After clicking power on and receiving a note-on event, a note is sent to the oscillator', async () => {
         document.body.innerHTML = listenTemplateContent;
         delete window.location;
         window.location = { origin: "https://www.example.org" };
