@@ -18,7 +18,7 @@ require 'capybara'
 require 'capybara/rspec'
 require 'rspec'
 
-require File.join(File.dirname(__FILE__), '..', 'lib/server.rb')
+require File.join(File.dirname(__FILE__), '..', 'server.rb')
 
 Capybara.app = Kirill
 

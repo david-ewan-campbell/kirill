@@ -1,2 +1,2 @@
-require '../server/lib/server'
+require '../server/server'
 run Kirill
