@@ -3,4 +3,4 @@
 set -euo pipefail # Bash 'strict mode'
 
 PORT="${PORT:-4567}"
-cd server && rackup -p "$PORT"
+rackup -p "$PORT"

@@ -16,18 +16,15 @@ echo ''
 echo 'Installing backend dependencies.'
 echo '================================'
 tput sgr0 # reset text colour
-cwd=$(pwd)
 gem install rspec
-cd server && bundle install
-cd "$cwd"
+bundle install
 
 tput setaf 36
 echo ''
 echo 'Running backend tests.'
 echo '======================='
 tput sgr0
-cd server && bundle exec rspec
-cd "$cwd"
+bundle exec rspec
 
 tput setaf 36
 echo ''
@@ -48,5 +45,4 @@ echo ''
 echo 'Build frontend JavaScript bundle.'
 echo '================================='
 tput sgr0
-cd server && npx parcel build --dist-dir lib/public/js lib/js/src/app.js
-cd "$cwd"
+npx parcel build --dist-dir public/js js/src/app.js
