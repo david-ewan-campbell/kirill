@@ -8,7 +8,7 @@
     "parcel": "^2.8.3"
   },
   "scripts": {
-    "test": "jest js"
+    "test": "jest ./js/test"
   },
   "repository": {
     "type": "git",
