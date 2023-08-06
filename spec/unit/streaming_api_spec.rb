@@ -1,5 +1,7 @@
 require 'rspec'
 require 'rack/test'
+require 'test_doubles/streaming_mode/streaming_disabled_mode'
+require 'test_doubles/streaming_mode/stream_one_event_mode'
 
 def app
   Kirill
@@ -52,32 +54,5 @@ describe "Streaming API" do
         # always expect frequency of 100Hz for now, to keep it simple.
         expect(response.body).to eq("event:note-on\ndata:{\"frequency\":100}\n\n")
     end
-  end
-end
-
-# event: note-on
-# data: {"frequency":100}
-#
-
-class StreamOneEventMode
-  def initialize
-    @streaming_enabled = true
-  end
-
-  def should_stream?
-    @streaming_enabled
-  end
-
-  def streamed_one_event
-    @streaming_enabled = false
-  end
-end
-
-class StreamingDisabledMode
-  def should_stream?
-    false
-  end
-
-  def streamed_one_event
   end
 end
