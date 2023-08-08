@@ -1,2 +1,0 @@
-(()=>{class t{constructor(t){this.audioContext=t}receiveInput(){const t=this.audioContext.createOscillator();t.connect(this.audioContext.destination),t.start()}}(function(){const e=new t(new AudioContext),n=document.querySelector("#power-on-button");if(null===n)throw new Error("Power on button not found.");n.addEventListener("click",(()=>{e.receiveInput(),n.setAttribute("disabled","true")}))})()})();
-//# sourceMappingURL=app.js.map
