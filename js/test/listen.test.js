@@ -50,7 +50,7 @@ beforeEach(() => {
 });
 
 describe("listen page", () => {
-    xtest('After clicking power on and receiving a note-on event, a note is sent to the oscillator', async () => {
+    test('After clicking power on and receiving a note-on event, a note is sent to the oscillator', async () => {
         document.body.innerHTML = listenTemplateContent;
         delete window.location;
         window.location = { origin: "https://www.example.org" };
@@ -89,7 +89,7 @@ describe("listen page", () => {
         expect(stubEventSource._url).toBe(null);
     });
 
-    xtest('No audio output until note-on events are received, even after power-on has been clicked', () => {
+    test('No audio output until note-on events are received, even after power-on has been clicked', () => {
         document.body.innerHTML = listenTemplateContent;
         window.AudioContext = jest.fn().mockImplementation(() => stubAudioContext);
         window.EventSource = jest.fn().mockImplementation((url) => {

@@ -17,10 +17,15 @@ class AudioOutput {
     }
 
     receiveInput() {
-        const oscillator = this.audioContext.createOscillator();
-        oscillator.connect(this.audioContext.destination);
-        oscillator.start();
+        const eventsource = new EventSource("https://www.example.org/api/listen");
+        eventsource.addEventListener("note-on", (event) => {
+          const oscillator = this.audioContext.createOscillator();
+          oscillator.frequency.setValueAtTime(123, 0);
+          oscillator.connect(this.audioContext.destination);
+          oscillator.start(); 
+        });
     }
-}
+
+};
 
 module.exports = listen;

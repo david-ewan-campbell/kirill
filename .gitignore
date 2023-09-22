@@ -5,3 +5,5 @@ settings.json
 .parcel-cache
 
 public/js/app.js*
+
+.DS_Store
