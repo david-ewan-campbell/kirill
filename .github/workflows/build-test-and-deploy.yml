@@ -29,7 +29,7 @@ jobs:
       - name: Build Kirill
         run: ./build
         
-    deploy:
+  deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
