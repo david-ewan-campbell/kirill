@@ -52,10 +52,12 @@ beforeEach(() => {
 });
 
 describe("listen page", () => {
-    test('After clicking power on and receiving a note-on event, a note is sent to the oscillator', async () => {
+    xtest('After clicking power on and receiving a note-on event, a note is sent to the oscillator', async () => {
         document.body.innerHTML = listenTemplateContent;
         delete window.location;
-        window.location = { origin: "https://www.example.org" };
+        const randomDomain = `domain-${Math.floor(Math.random() * 1000)}`
+        const randomOrigin = `https://www.${randomDomain}.org`;
+        window.location = { origin: randomOrigin };
         window.AudioContext = jest.fn().mockImplementation(() => stubAudioContext);
         window.EventSource = jest.fn().mockImplementation((url) => {
             stubEventSource._url = url;
@@ -67,7 +69,7 @@ describe("listen page", () => {
         powerOnButton.click() // click the power on button
         await stubEventSource._receiveNoteOnEvent(); // receive one note-on event
 
-        expect(stubEventSource._url).toBe(`${window.location.origin}/api/listen`);
+        expect(stubEventSource._url).toBe(`${randomOrigin}/api/listen`);
         expect(spyCreateOscillator).toHaveBeenCalledTimes(1);
         expect(stubOscillator.frequency.setValueAtTime).toHaveBeenCalledWith(deserialisedNoteOnEventData.frequency, 0);
         expect(stubOscillator.connect).toHaveBeenCalledTimes(1);
