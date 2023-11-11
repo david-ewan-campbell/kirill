@@ -20,7 +20,8 @@ class AudioOutput {
         const eventsource = new EventSource("https://www.example.org/api/listen");
         eventsource.addEventListener("note-on", (event) => {
           const oscillator = this.audioContext.createOscillator();
-          oscillator.frequency.setValueAtTime(123, 0);
+          const data = JSON.parse(event.data);
+          oscillator.frequency.setValueAtTime(data.frequency, 0);
           oscillator.connect(this.audioContext.destination);
           oscillator.start(); 
         });

@@ -17,8 +17,10 @@ const stubAudioContext = {
     createOscillator: spyCreateOscillator,
     destination: {}
 };
+
+const randomFrequency = Math.floor(Math.random() * 1000);
 const deserialisedNoteOnEventData = {
-    frequency: 123
+    frequency: randomFrequency
 };
 const stubNoteOnEvent = {
     data: JSON.stringify(deserialisedNoteOnEventData)

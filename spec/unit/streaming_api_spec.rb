@@ -53,6 +53,8 @@ describe "Streaming API" do
         response = get '/api/listen'
         # always expect frequency of 100Hz for now, to keep it simple.
         expect(response.body).to eq("event:note-on\ndata:{\"frequency\":100}\n\n")
-    end
-  end
+
+        # event: note-on
+        # data: {"frequency":100}
+    end  end
 end
