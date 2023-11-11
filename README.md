@@ -1,5 +1,7 @@
 # Kirill (working title!)
 
+![CI/CD](https://github.com/david-ewan-campbell/kirill/actions/workflows/.github/workflows/build-test-and-deploy.yml/badge.svg)
+
 ## A collaborative project to build a distributed musical instrument.
 - Uses the built-in web audio context & various other technologies/languages,
 including Ruby, Javascript, Shell scripting, HTML & CSS & Sinatra.
